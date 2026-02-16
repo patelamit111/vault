@@ -67,7 +67,7 @@ export default function DemoPage() {
 
   return (
     <div className="min-h-screen">
-      <header className="border-b border-white/10 bg-[#070A0F]/70 backdrop-blur">
+      <header className="border-b border-white/15 bg-[#060813]/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
             <VaultMark className="h-7 w-7" />
@@ -92,7 +92,7 @@ export default function DemoPage() {
               original to Drive and the structured index to Sheets.
             </p>
 
-            <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div className="mt-8 rounded-3xl border border-white/15 bg-white/7 p-6">
               <div className="text-sm font-semibold">1) Upload</div>
               <div className="mt-3 grid gap-3">
                 <input
@@ -147,7 +147,7 @@ export default function DemoPage() {
           </div>
 
           <div>
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div className="rounded-3xl border border-white/15 bg-white/7 p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm font-semibold">2) Review</div>

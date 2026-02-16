@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function DemoCard() {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_60px_160px_-120px_rgba(168,85,247,0.65)]">
+    <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/7 shadow-[0_60px_160px_-120px_rgba(168,85,247,0.65)]">
       <div className="absolute inset-0 bg-gradient-to-tr from-sky-400/10 via-indigo-400/10 to-fuchsia-400/10" />
       <div className="relative grid gap-4 p-6 lg:grid-cols-5">
         <div className="lg:col-span-3">

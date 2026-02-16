@@ -31,7 +31,7 @@ export function FeatureGrid() {
       {features.map((f) => (
         <div
           key={f.title}
-          className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:bg-white/7"
+          className="rounded-2xl border border-white/15 bg-white/7 p-6 transition hover:bg-white/10"
         >
           <div className="text-sm font-semibold tracking-tight">{f.title}</div>
           <div className="mt-2 text-sm leading-6 text-white/65">{f.body}</div>

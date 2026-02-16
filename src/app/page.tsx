@@ -33,7 +33,7 @@ export default function Home() {
                 .
               </h1>
 
-              <p className="mt-5 text-pretty text-lg leading-8 text-white/70 sm:text-xl">
+              <p className="mt-5 text-pretty text-lg leading-8 text-white/80 sm:text-xl">
                 Upload passports, insurance cards, account statements, anything.
                 Vault pulls out the details and saves everything directly into
                 your Google Drive and Google Sheets so it’s searchable, portable,
@@ -135,7 +135,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_30px_90px_-60px_rgba(56,189,248,0.5)]">
+            <div className="rounded-3xl border border-white/15 bg-white/7 p-6 shadow-[0_30px_90px_-60px_rgba(56,189,248,0.55)]">
               <div className="rounded-2xl border border-white/10 bg-[#0B1020] p-5">
                 <div className="flex items-center justify-between">
                   <div className="text-sm font-semibold">Example: Passport</div>
