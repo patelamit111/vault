@@ -13,7 +13,7 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #7DD3FC, #A5B4FC, #F0ABFC)",
+          background: "linear-gradient(135deg, #1D4ED8, #4F46E5, #E11D48)",
           borderRadius: 14,
           padding: 3,
         }}
@@ -23,7 +23,7 @@ export default function Icon() {
             width: "100%",
             height: "100%",
             borderRadius: 12,
-            background: "#070A0F",
+            background: "#0B1220",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -34,7 +34,7 @@ export default function Icon() {
               width: 26,
               height: 26,
               borderRadius: 10,
-              border: "3px solid rgba(255,255,255,0.75)",
+              border: "3px solid rgba(255,255,255,0.80)",
             }}
           />
         </div>

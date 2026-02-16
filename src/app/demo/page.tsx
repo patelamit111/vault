@@ -67,16 +67,13 @@ export default function DemoPage() {
 
   return (
     <div className="min-h-screen">
-      <header className="border-b border-white/15 bg-[#060813]/80 backdrop-blur">
+      <header className="border-b border-slate-200/70 bg-[#F7F7FB]/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
             <VaultMark className="h-7 w-7" />
             <span className="text-sm font-semibold">Vault</span>
           </Link>
-          <Link
-            href="/"
-            className="text-sm text-white/70 hover:text-white"
-          >
+          <Link href="/" className="text-sm text-slate-600 hover:text-slate-900">
             Back
           </Link>
         </div>
@@ -85,19 +82,21 @@ export default function DemoPage() {
       <main className="mx-auto max-w-6xl px-6 py-10">
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight">Demo</h1>
-            <p className="mt-3 text-white/65">
+            <h1 className="font-serif text-3xl font-semibold tracking-tight text-slate-900">
+              Demo
+            </h1>
+            <p className="mt-3 text-slate-600">
               This is a UI prototype showing the intended flow. In production,
               the extraction pipeline would OCR + run an LLM, then write the
               original to Drive and the structured index to Sheets.
             </p>
 
-            <div className="mt-8 rounded-3xl border border-white/15 bg-white/7 p-6">
-              <div className="text-sm font-semibold">1) Upload</div>
+            <div className="mt-8 rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-sm">
+              <div className="text-sm font-semibold text-slate-900">1) Upload</div>
               <div className="mt-3 grid gap-3">
                 <input
                   type="file"
-                  className="block w-full text-sm text-white/70 file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2 file:text-xs file:font-semibold file:text-black hover:file:bg-white/90"
+                  className="block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-slate-900 file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white hover:file:bg-slate-800"
                   onChange={(e) => {
                     const f = e.target.files?.[0];
                     setFileName(f ? f.name : null);
@@ -105,12 +104,12 @@ export default function DemoPage() {
                 />
 
                 <div className="grid grid-cols-2 gap-3">
-                  <label className="text-xs text-white/60">
+                  <label className="text-xs text-slate-600">
                     Document type
                     <select
                       value={docType}
                       onChange={(e) => setDocType(e.target.value as DocType)}
-                      className="mt-1 block w-full rounded-xl border border-white/10 bg-[#0B1020] px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-sky-400/40"
+                      className="mt-1 block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:ring-2 focus:ring-blue-500/30"
                     >
                       <option value="passport">Passport</option>
                       <option value="insurance">Insurance card</option>
@@ -119,16 +118,16 @@ export default function DemoPage() {
                     </select>
                   </label>
 
-                  <label className="text-xs text-white/60">
+                  <label className="text-xs text-slate-600">
                     Google destination
-                    <div className="mt-1 rounded-xl border border-white/10 bg-[#0B1020] px-3 py-2 text-sm text-white/80">
+                    <div className="mt-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800">
                       Drive + Sheets
                     </div>
                   </label>
                 </div>
 
                 <button
-                  className="mt-1 inline-flex h-11 items-center justify-center rounded-full bg-white px-5 text-sm font-semibold text-black transition hover:bg-white/90 disabled:opacity-60"
+                  className="mt-1 inline-flex h-11 items-center justify-center rounded-full bg-slate-900 px-5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-60"
                   disabled={isExtracting}
                   onClick={async () => {
                     setIsExtracting(true);
@@ -139,7 +138,7 @@ export default function DemoPage() {
                   {isExtracting ? "Extracting…" : "Extract fields"}
                 </button>
 
-                <div className="text-xs text-white/50">
+                <div className="text-xs text-slate-500">
                   Selected: {fileName ?? "(no file chosen)"}
                 </div>
               </div>
@@ -147,58 +146,58 @@ export default function DemoPage() {
           </div>
 
           <div>
-            <div className="rounded-3xl border border-white/15 bg-white/7 p-6">
+            <div className="rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-semibold">2) Review</div>
-                  <div className="mt-1 text-xs text-white/50">
+                  <div className="text-sm font-semibold text-slate-900">2) Review</div>
+                  <div className="mt-1 text-xs text-slate-500">
                     confidence {extracted.confidence.toFixed(2)}
                   </div>
                 </div>
-                <div className="text-xs text-white/50">prototype</div>
+                <div className="text-xs text-slate-500">prototype</div>
               </div>
 
-              <div className="mt-4 rounded-2xl border border-white/10 bg-[#0B1020] p-5">
-                <div className="text-sm font-semibold">{extracted.title}</div>
+              <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+                <div className="text-sm font-semibold text-slate-900">{extracted.title}</div>
                 <div className="mt-4 grid grid-cols-2 gap-3">
                   {Object.entries(extracted.fields).map(([k, v]) => (
                     <div
                       key={k}
-                      className="rounded-xl border border-white/10 bg-white/5 px-3 py-2"
+                      className="rounded-xl border border-slate-200 bg-white px-3 py-2"
                     >
-                      <div className="text-[11px] uppercase tracking-wide text-white/45">
+                      <div className="text-[11px] uppercase tracking-wide text-slate-500">
                         {k}
                       </div>
-                      <div className="mt-1 text-sm font-medium text-white/90">
+                      <div className="mt-1 text-sm font-medium text-slate-900">
                         {v}
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm">
-                  <div className="text-[11px] uppercase tracking-wide text-white/45">
+                <div className="mt-4 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+                  <div className="text-[11px] uppercase tracking-wide text-slate-500">
                     Save locations
                   </div>
-                  <div className="mt-1 text-white/85">
-                    Drive → <span className="text-white/60">{extracted.drivePath}</span>
+                  <div className="mt-1 text-slate-800">
+                    Drive → <span className="text-slate-600">{extracted.drivePath}</span>
                   </div>
-                  <div className="mt-1 text-white/85">
-                    Sheets → <span className="text-white/60">Vault Index</span>
+                  <div className="mt-1 text-slate-800">
+                    Sheets → <span className="text-slate-600">Vault Index</span>
                   </div>
                 </div>
 
                 <div className="mt-5 flex items-center justify-end gap-2">
-                  <button className="h-10 rounded-full border border-white/15 bg-white/5 px-4 text-xs font-semibold text-white/90">
+                  <button className="h-10 rounded-full border border-slate-200 bg-white px-4 text-xs font-semibold text-slate-800">
                     Edit
                   </button>
-                  <button className="h-10 rounded-full bg-emerald-400 px-4 text-xs font-semibold text-emerald-950">
+                  <button className="h-10 rounded-full bg-emerald-500 px-4 text-xs font-semibold text-white">
                     Confirm & Save
                   </button>
                 </div>
               </div>
 
-              <div className="mt-4 text-xs text-white/50">
+              <div className="mt-4 text-xs text-slate-500">
                 Next steps after this UI: wire Google OAuth, Drive upload, and
                 Sheets writes.
               </div>
