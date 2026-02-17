@@ -1,27 +1,27 @@
 const features = [
   {
-    title: "Your data stays in Google",
-    body: "Originals in Drive. Structured index in Sheets. Nothing trapped in a proprietary database.",
+    title: "Automatic extraction",
+    body: "No review step. Vault categorizes and extracts fields instantly, then writes to your Sheet.",
   },
   {
-    title: "Fast extraction with review",
-    body: "OCR + LLM pulls fields with confidence so you can approve in seconds.",
+    title: "Your data stays in Google",
+    body: "Originals in Drive. Structured index in Sheets. Nothing trapped in a proprietary database.",
   },
   {
     title: "Cross-device by default",
     body: "Sign in anywhere with Google and your Vault shows up instantly.",
   },
   {
-    title: "Designed for real documents",
-    body: "Passports, insurance cards, bank statements, account screenshots—mixed formats welcome.",
+    title: "Smart categorization",
+    body: "Passports, insurance cards, bank statements, account screenshots—auto-labeled and sorted.",
+  },
+  {
+    title: "Proof of life",
+    body: "If you don’t check in or don’t respond to a ping, access can be granted to designated people.",
   },
   {
     title: "Audit trail you can trust",
     body: "Every saved record has a Drive file ID and timestamps. Easy to trace and share.",
-  },
-  {
-    title: "Build once, integrate later",
-    body: "Start with Sheets. Add alerts, sharing, workflows, or a richer index when you need it.",
   },
 ];
 

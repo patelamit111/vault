@@ -3,6 +3,10 @@ import { DemoCard } from "@/components/demo-card";
 import { FeatureGrid } from "@/components/feature-grid";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import {
+  IllustrationDriveSheets,
+  IllustrationProofOfLife,
+} from "@/components/illustrations";
 
 export default function Home() {
   return (
@@ -57,8 +61,8 @@ export default function Home() {
               <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-slate-500">
                 <span>Google OAuth</span>
                 <span>Drive folder + Sheets index</span>
-                <span>Field-level confidence</span>
-                <span>Review before save</span>
+                <span>Auto-categorization</span>
+                <span>Auto-save</span>
               </div>
             </div>
 
@@ -79,6 +83,104 @@ export default function Home() {
           </p>
           <div className="mt-10">
             <FeatureGrid />
+          </div>
+        </section>
+
+        {/* Visuals */}
+        <section className="mx-auto max-w-6xl px-6 pb-16">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div>
+              <h3 className="font-serif text-2xl font-semibold tracking-tight text-slate-900">
+                Automatic extraction + categorization
+              </h3>
+              <p className="mt-3 text-slate-600">
+                Upload a document and Vault does the rest: detects the type,
+                extracts key fields, and saves the original to Drive + the
+                structured index to Sheets.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2 text-xs">
+                {[
+                  "Passports",
+                  "Insurance cards",
+                  "Statements",
+                  "Accounts",
+                  "IDs",
+                ].map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-slate-200 bg-white/70 px-3 py-1 text-slate-600"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 shadow-[0_30px_90px_-60px_rgba(79,70,229,0.25)]">
+              <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-white">
+                <IllustrationDriveSheets />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Proof of Life */}
+        <section className="mx-auto max-w-6xl px-6 pb-16">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div className="order-2 lg:order-1 rounded-3xl border border-slate-200 bg-white/70 p-4 shadow-[0_30px_90px_-60px_rgba(16,185,129,0.22)]">
+              <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-white">
+                <IllustrationProofOfLife />
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <h3 className="font-serif text-2xl font-semibold tracking-tight text-slate-900">
+                Proof of life (access escalation)
+              </h3>
+              <p className="mt-3 text-slate-600">
+                Pick trusted people. If you don’t access Vault for X days—or if
+                you don’t respond to a ping email within a window—Vault can
+                automatically grant access to your Vault folder + index.
+              </p>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {[{
+                  t: "Inactivity timer",
+                  b: "Grant access after X days without a login.",
+                },
+                {
+                  t: "Email ping",
+                  b: "Send a “prove you’re there” email before escalating.",
+                },
+                {
+                  t: "Multiple designees",
+                  b: "One person or a small group—configurable.",
+                },
+                {
+                  t: "Audit trail",
+                  b: "Every step logged in the Sheet for visibility.",
+                }].map((x) => (
+                  <div
+                    key={x.t}
+                    className="rounded-2xl border border-slate-200 bg-white/70 p-4"
+                  >
+                    <div className="text-sm font-semibold text-slate-900">
+                      {x.t}
+                    </div>
+                    <div className="mt-1 text-sm text-slate-600">{x.b}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-7">
+                <Link
+                  href="/demo"
+                  className="inline-flex h-11 items-center justify-center rounded-full bg-slate-900 px-5 text-sm font-semibold text-white transition hover:bg-slate-800"
+                >
+                  See the flow
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -213,7 +315,7 @@ export default function Home() {
                 },
                 {
                   q: "Is this secure?",
-                  a: "Access is gated by Google OAuth. We recommend strict least-privilege scopes and an app-owned Drive folder.",
+                  a: "Access is gated by Google OAuth and scoped to an app-owned Drive folder + one Sheet. Proof-of-life escalation is opt-in and fully configurable.",
                 },
                 {
                   q: "Can I use it across devices?",
@@ -221,7 +323,7 @@ export default function Home() {
                 },
                 {
                   q: "What if the extraction is wrong?",
-                  a: "Every field includes confidence signals, and the flow is designed for a quick human review before saving.",
+                  a: "Vault is designed for automatic capture. In practice, you can still correct fields later in your Sheet (and Vault can learn your preferences).",
                 },
               ].map((item) => (
                 <div key={item.q}>

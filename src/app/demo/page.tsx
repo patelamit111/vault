@@ -6,7 +6,14 @@ import { VaultMark } from "@/components/vault-mark";
 
 type DocType = "passport" | "insurance" | "bank" | "generic";
 
-function fakeExtract(type: DocType) {
+type Extracted = {
+  title: string;
+  fields: Record<string, string>;
+  confidence: number;
+  drivePath: string;
+};
+
+function fakeExtract(type: DocType): Extracted {
   if (type === "passport")
     return {
       title: "Passport — Amit Patel",
@@ -50,7 +57,7 @@ function fakeExtract(type: DocType) {
     title: "Document — Uploaded",
     fields: {
       category: "Generic",
-      summary: "Important document (review fields)",
+      summary: "Important document (auto-tagged)",
       reference: "AUTO-EXTRACT",
     },
     confidence: 0.75,
@@ -61,7 +68,8 @@ function fakeExtract(type: DocType) {
 export default function DemoPage() {
   const [docType, setDocType] = useState<DocType>("passport");
   const [fileName, setFileName] = useState<string | null>(null);
-  const [isExtracting, setIsExtracting] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const extracted = useMemo(() => fakeExtract(docType), [docType]);
 
@@ -86,13 +94,12 @@ export default function DemoPage() {
               Demo
             </h1>
             <p className="mt-3 text-slate-600">
-              This is a UI prototype showing the intended flow. In production,
-              the extraction pipeline would OCR + run an LLM, then write the
-              original to Drive and the structured index to Sheets.
+              Prototype flow: upload → automatic extraction + categorization →
+              auto-save to Drive + Sheets. No review step.
             </p>
 
             <div className="mt-8 rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-sm">
-              <div className="text-sm font-semibold text-slate-900">1) Upload</div>
+              <div className="text-sm font-semibold text-slate-900">Upload</div>
               <div className="mt-3 grid gap-3">
                 <input
                   type="file"
@@ -108,7 +115,10 @@ export default function DemoPage() {
                     Document type
                     <select
                       value={docType}
-                      onChange={(e) => setDocType(e.target.value as DocType)}
+                      onChange={(e) => {
+                        setDocType(e.target.value as DocType);
+                        setSaved(false);
+                      }}
                       className="mt-1 block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:ring-2 focus:ring-blue-500/30"
                     >
                       <option value="passport">Passport</option>
@@ -119,7 +129,7 @@ export default function DemoPage() {
                   </label>
 
                   <label className="text-xs text-slate-600">
-                    Google destination
+                    Destination
                     <div className="mt-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800">
                       Drive + Sheets
                     </div>
@@ -128,14 +138,16 @@ export default function DemoPage() {
 
                 <button
                   className="mt-1 inline-flex h-11 items-center justify-center rounded-full bg-slate-900 px-5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-60"
-                  disabled={isExtracting}
+                  disabled={isRunning}
                   onClick={async () => {
-                    setIsExtracting(true);
-                    await new Promise((r) => setTimeout(r, 900));
-                    setIsExtracting(false);
+                    setIsRunning(true);
+                    setSaved(false);
+                    await new Promise((r) => setTimeout(r, 850));
+                    setSaved(true);
+                    setIsRunning(false);
                   }}
                 >
-                  {isExtracting ? "Extracting…" : "Extract fields"}
+                  {isRunning ? "Extracting + saving…" : "Upload & auto-save"}
                 </button>
 
                 <div className="text-xs text-slate-500">
@@ -149,7 +161,9 @@ export default function DemoPage() {
             <div className="rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-semibold text-slate-900">2) Review</div>
+                  <div className="text-sm font-semibold text-slate-900">
+                    Automatic result
+                  </div>
                   <div className="mt-1 text-xs text-slate-500">
                     confidence {extracted.confidence.toFixed(2)}
                   </div>
@@ -158,7 +172,21 @@ export default function DemoPage() {
               </div>
 
               <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
-                <div className="text-sm font-semibold text-slate-900">{extracted.title}</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-sm font-semibold text-slate-900">
+                    {extracted.title}
+                  </div>
+                  {saved ? (
+                    <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
+                      Saved
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center rounded-full bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-600 ring-1 ring-slate-200">
+                      Pending
+                    </span>
+                  )}
+                </div>
+
                 <div className="mt-4 grid grid-cols-2 gap-3">
                   {Object.entries(extracted.fields).map(([k, v]) => (
                     <div
@@ -177,7 +205,7 @@ export default function DemoPage() {
 
                 <div className="mt-4 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
                   <div className="text-[11px] uppercase tracking-wide text-slate-500">
-                    Save locations
+                    Saved locations
                   </div>
                   <div className="mt-1 text-slate-800">
                     Drive → <span className="text-slate-600">{extracted.drivePath}</span>
@@ -186,20 +214,11 @@ export default function DemoPage() {
                     Sheets → <span className="text-slate-600">Vault Index</span>
                   </div>
                 </div>
-
-                <div className="mt-5 flex items-center justify-end gap-2">
-                  <button className="h-10 rounded-full border border-slate-200 bg-white px-4 text-xs font-semibold text-slate-800">
-                    Edit
-                  </button>
-                  <button className="h-10 rounded-full bg-emerald-500 px-4 text-xs font-semibold text-white">
-                    Confirm & Save
-                  </button>
-                </div>
               </div>
 
               <div className="mt-4 text-xs text-slate-500">
-                Next steps after this UI: wire Google OAuth, Drive upload, and
-                Sheets writes.
+                Next step: wire Google OAuth + Drive upload + Sheets writes +
+                proof-of-life escalation.
               </div>
             </div>
           </div>
