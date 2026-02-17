@@ -27,16 +27,15 @@ const features = [
 
 export function FeatureGrid() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
       {features.map((f) => (
-        <div
-          key={f.title}
-          className="rounded-2xl border border-slate-200 bg-white/70 p-6 shadow-sm transition hover:bg-white"
-        >
-          <div className="text-sm font-semibold tracking-tight text-slate-900">
+        <div key={f.title} className="space-y-2">
+          <div className="text-sm font-semibold tracking-tight text-[#0B0D10]">
             {f.title}
           </div>
-          <div className="mt-2 text-sm leading-6 text-slate-600">{f.body}</div>
+          <div className="text-sm leading-6 text-[rgba(11,13,16,.62)]">
+            {f.body}
+          </div>
         </div>
       ))}
     </div>

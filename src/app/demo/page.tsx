@@ -74,36 +74,37 @@ export default function DemoPage() {
   const extracted = useMemo(() => fakeExtract(docType), [docType]);
 
   return (
-    <div className="min-h-screen">
-      <header className="border-b border-slate-200/70 bg-[#F7F7FB]/85 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <div className="min-h-screen bg-white">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
           <Link href="/" className="flex items-center gap-2">
             <VaultMark className="h-7 w-7" />
             <span className="text-sm font-semibold">Vault</span>
           </Link>
-          <Link href="/" className="text-sm text-slate-600 hover:text-slate-900">
+          <Link href="/" className="text-sm text-[rgba(11,13,16,.62)] hover:text-[#0B0D10]">
             Back
           </Link>
         </div>
+        <div className="hairline mx-auto max-w-6xl border-b" />
       </header>
 
-      <main className="mx-auto max-w-6xl px-6 py-10">
-        <div className="grid gap-10 lg:grid-cols-2">
+      <main className="mx-auto max-w-6xl px-6 py-16">
+        <div className="grid gap-12 lg:grid-cols-2">
           <div>
-            <h1 className="font-serif text-3xl font-semibold tracking-tight text-slate-900">
+            <h1 className="text-3xl font-semibold tracking-tight text-[#0B0D10]">
               Demo
             </h1>
-            <p className="mt-3 text-slate-600">
+            <p className="mt-4 text-[rgba(11,13,16,.62)]">
               Prototype flow: upload → automatic extraction + categorization →
-              auto-save to Drive + Sheets. No review step.
+              auto-save to Drive + Sheets.
             </p>
 
-            <div className="mt-8 rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-sm">
-              <div className="text-sm font-semibold text-slate-900">Upload</div>
-              <div className="mt-3 grid gap-3">
+            <div className="mt-10 rounded-3xl surface p-7">
+              <div className="text-sm font-semibold text-[#0B0D10]">Upload</div>
+              <div className="mt-5 grid gap-4">
                 <input
                   type="file"
-                  className="block w-full text-sm text-slate-600 file:mr-4 file:rounded-full file:border-0 file:bg-slate-900 file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white hover:file:bg-slate-800"
+                  className="block w-full text-sm text-[rgba(11,13,16,.62)] file:mr-4 file:rounded-full file:border-0 file:bg-[#0B0D10] file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white hover:file:bg-black"
                   onChange={(e) => {
                     const f = e.target.files?.[0];
                     setFileName(f ? f.name : null);
@@ -111,7 +112,7 @@ export default function DemoPage() {
                 />
 
                 <div className="grid grid-cols-2 gap-3">
-                  <label className="text-xs text-slate-600">
+                  <label className="text-xs text-[rgba(11,13,16,.62)]">
                     Document type
                     <select
                       value={docType}
@@ -119,7 +120,7 @@ export default function DemoPage() {
                         setDocType(e.target.value as DocType);
                         setSaved(false);
                       }}
-                      className="mt-1 block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 outline-none focus:ring-2 focus:ring-blue-500/30"
+                      className="mt-2 block w-full rounded-xl surface px-3 py-2 text-sm text-[#0B0D10] outline-none focus:ring-2 focus:ring-black/10"
                     >
                       <option value="passport">Passport</option>
                       <option value="insurance">Insurance card</option>
@@ -128,16 +129,16 @@ export default function DemoPage() {
                     </select>
                   </label>
 
-                  <label className="text-xs text-slate-600">
+                  <label className="text-xs text-[rgba(11,13,16,.62)]">
                     Destination
-                    <div className="mt-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800">
+                    <div className="mt-2 rounded-xl surface px-3 py-2 text-sm text-[#0B0D10]">
                       Drive + Sheets
                     </div>
                   </label>
                 </div>
 
                 <button
-                  className="mt-1 inline-flex h-11 items-center justify-center rounded-full bg-slate-900 px-5 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-60"
+                  className="mt-2 inline-flex h-11 items-center justify-center rounded-full bg-[#0B0D10] px-5 text-sm font-semibold text-white transition hover:bg-black disabled:opacity-60"
                   disabled={isRunning}
                   onClick={async () => {
                     setIsRunning(true);
@@ -150,7 +151,7 @@ export default function DemoPage() {
                   {isRunning ? "Extracting + saving…" : "Upload & auto-save"}
                 </button>
 
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-[rgba(11,13,16,.62)]">
                   Selected: {fileName ?? "(no file chosen)"}
                 </div>
               </div>
@@ -158,65 +159,62 @@ export default function DemoPage() {
           </div>
 
           <div>
-            <div className="rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-sm">
+            <div className="rounded-3xl surface p-7">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-semibold text-slate-900">
+                  <div className="text-sm font-semibold text-[#0B0D10]">
                     Automatic result
                   </div>
-                  <div className="mt-1 text-xs text-slate-500">
+                  <div className="mt-2 text-xs text-[rgba(11,13,16,.62)]">
                     confidence {extracted.confidence.toFixed(2)}
                   </div>
                 </div>
-                <div className="text-xs text-slate-500">prototype</div>
+                <div className="text-xs text-[rgba(11,13,16,.62)]">prototype</div>
               </div>
 
-              <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+              <div className="mt-6 rounded-2xl bg-white p-6">
                 <div className="flex items-center justify-between">
-                  <div className="text-sm font-semibold text-slate-900">
+                  <div className="text-sm font-semibold text-[#0B0D10]">
                     {extracted.title}
                   </div>
                   {saved ? (
-                    <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
+                    <span className="text-xs font-semibold text-[#0B0D10]">
                       Saved
                     </span>
                   ) : (
-                    <span className="inline-flex items-center rounded-full bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-600 ring-1 ring-slate-200">
+                    <span className="text-xs font-semibold text-[rgba(11,13,16,.62)]">
                       Pending
                     </span>
                   )}
                 </div>
 
-                <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="mt-6 grid grid-cols-2 gap-3">
                   {Object.entries(extracted.fields).map(([k, v]) => (
-                    <div
-                      key={k}
-                      className="rounded-xl border border-slate-200 bg-white px-3 py-2"
-                    >
-                      <div className="text-[11px] uppercase tracking-wide text-slate-500">
+                    <div key={k} className="rounded-xl surface px-3 py-2">
+                      <div className="text-[11px] uppercase tracking-wide text-[rgba(11,13,16,.62)]">
                         {k}
                       </div>
-                      <div className="mt-1 text-sm font-medium text-slate-900">
+                      <div className="mt-1 text-sm font-medium text-[#0B0D10]">
                         {v}
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-4 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
-                  <div className="text-[11px] uppercase tracking-wide text-slate-500">
+                <div className="mt-6 rounded-xl surface px-3 py-2 text-sm">
+                  <div className="text-[11px] uppercase tracking-wide text-[rgba(11,13,16,.62)]">
                     Saved locations
                   </div>
-                  <div className="mt-1 text-slate-800">
-                    Drive → <span className="text-slate-600">{extracted.drivePath}</span>
+                  <div className="mt-1 text-[#0B0D10]">
+                    Drive → <span className="text-[rgba(11,13,16,.62)]">{extracted.drivePath}</span>
                   </div>
-                  <div className="mt-1 text-slate-800">
-                    Sheets → <span className="text-slate-600">Vault Index</span>
+                  <div className="mt-1 text-[#0B0D10]">
+                    Sheets → <span className="text-[rgba(11,13,16,.62)]">Vault Index</span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4 text-xs text-slate-500">
+              <div className="mt-5 text-xs text-[rgba(11,13,16,.62)]">
                 Next step: wire Google OAuth + Drive upload + Sheets writes +
                 proof-of-life escalation.
               </div>
